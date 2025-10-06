@@ -1,0 +1,11 @@
+altair
+matplotlib
+numpy
+pandas
+plotly
+seaborn
+selenium
+streamlit
+webdriver-manager
+dash
+gunicorn
