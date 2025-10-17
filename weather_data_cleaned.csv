@@ -1,0 +1,48 @@
+City,Temp_Raw,Temp_Numeric,Temp_Unit,Temp_Category,Condition,Condition_Normalized,Country,Link
+Darwin,90 °F,90,F,Hot,Broken clouds. Hot.,Broken clouds. Hot.,australia,https://www.timeanddate.com/weather/australia/darwin
+Caracas,84 °F,84,F,Warm,Passing clouds. Warm.,Passing clouds. Warm.,venezuela,https://www.timeanddate.com/weather/venezuela/caracas
+Dubai,84 °F,84,F,Warm,Clear. Warm.,Clear. Warm.,united-arab-emirates,https://www.timeanddate.com/weather/united-arab-emirates/dubai
+Bangkok,82 °F,82,F,Warm,Passing clouds. Warm.,Passing clouds. Warm.,thailand,https://www.timeanddate.com/weather/thailand/bangkok
+Doha,81 °F,81,F,Warm,Passing clouds. Warm.,Passing clouds. Warm.,qatar,https://www.timeanddate.com/weather/qatar/doha
+Dallas,80 °F,80,F,Warm,Partly cloudy. Warm.,Partly cloudy. Warm.,usa,https://www.timeanddate.com/weather/usa/dallas
+Dhaka,80 °F,80,F,Warm,Sunny. Warm.,Sunny. Warm.,bangladesh,https://www.timeanddate.com/weather/bangladesh/dhaka
+Canberra,79 °F,79,F,Warm,Sunny. Pleasantly warm.,Sunny. Pleasantly warm.,australia,https://www.timeanddate.com/weather/australia/canberra
+Accra,79 °F,79,F,Warm,Passing clouds. Warm.,Passing clouds. Warm.,ghana,https://www.timeanddate.com/weather/ghana/accra
+Brisbane,78 °F,78,F,Warm,Mild.,Mild.,australia,https://www.timeanddate.com/weather/australia/brisbane
+Dar es Salaam,76 °F,76,F,Warm,Passing clouds. Mild.,Passing clouds. Mild.,tanzania,https://www.timeanddate.com/weather/tanzania/dar-es-salaam
+Asuncion,73 °F,73,F,Warm,Passing clouds. Mild.,Passing clouds. Mild.,paraguay,https://www.timeanddate.com/weather/paraguay/asuncion
+Brasilia,73 °F,73,F,Warm,Clear. Mild.,Clear. Mild.,brazil,https://www.timeanddate.com/weather/brazil/brasilia
+Bengaluru,72 °F,72,F,Warm,Passing clouds. Mild.,Passing clouds. Mild.,india,https://www.timeanddate.com/weather/india/bengaluru
+Algiers,72 °F,72,F,Warm,Passing clouds. Mild.,Passing clouds. Mild.,algeria,https://www.timeanddate.com/weather/algeria/algiers
+Buenos Aires,72 °F,72,F,Warm,Passing clouds. Mild.,Passing clouds. Mild.,argentina,https://www.timeanddate.com/weather/argentina/buenos-aires
+Beirut,70 °F,70,F,Warm,Passing clouds. Mild.,Passing clouds. Mild.,lebanon,https://www.timeanddate.com/weather/lebanon/beirut
+Baghdad,68 °F,68,F,Warm,Clear. Mild.,Clear. Mild.,iraq,https://www.timeanddate.com/weather/iraq/baghdad
+Auckland,66 °F,66,F,Cool,Scattered clouds. Mild.,Scattered clouds. Mild.,new-zealand,https://www.timeanddate.com/weather/new-zealand/auckland
+Casablanca,66 °F,66,F,Cool,Mild.,Mild.,morocco,https://www.timeanddate.com/weather/morocco/casablanca
+Cairo,66 °F,66,F,Cool,Passing clouds. Mild.,Passing clouds. Mild.,egypt,https://www.timeanddate.com/weather/egypt/cairo
+Amman,64 °F,64,F,Cool,Clear. Mild.,Clear. Mild.,jordan,https://www.timeanddate.com/weather/jordan/amman
+Barcelona,64 °F,64,F,Cool,Passing clouds. Mild.,Passing clouds. Mild.,spain,https://www.timeanddate.com/weather/spain/barcelona
+Atlanta,63 °F,63,F,Cool,Clear. Mild.,Clear. Mild.,usa,https://www.timeanddate.com/weather/usa/atlanta
+Adelaide,62 °F,62,F,Cool,Cool.,Cool.,australia,https://www.timeanddate.com/weather/australia/adelaide
+Chicago,62 °F,62,F,Cool,Passing clouds. Cool.,Passing clouds. Cool.,usa,https://www.timeanddate.com/weather/usa/chicago
+Athens,62 °F,62,F,Cool,Refreshingly cool.,Refreshingly cool.,greece,https://www.timeanddate.com/weather/greece/athens
+Calgary,59 °F,59,F,Cool,Passing clouds. Refreshingly cool.,Passing clouds. Refreshingly cool.,canada,https://www.timeanddate.com/weather/canada/calgary
+Denver,58 °F,58,F,Cool,Passing clouds. Refreshingly cool.,Passing clouds. Refreshingly cool.,usa,https://www.timeanddate.com/weather/usa/denver
+Antananarivo,57 °F,57,F,Cool,Passing clouds. Cool.,Passing clouds. Cool.,madagascar,https://www.timeanddate.com/weather/madagascar/antananarivo
+Addis Ababa,55 °F,55,F,Cool,Passing clouds. Cool.,Passing clouds. Cool.,ethiopia,https://www.timeanddate.com/weather/ethiopia/addis-ababa
+Amsterdam,54 °F,54,F,Cool,Passing clouds. Cool.,Passing clouds. Cool.,netherlands,https://www.timeanddate.com/weather/netherlands/amsterdam
+Beijing,53 °F,53,F,Cool,Sunny. Cool.,Sunny. Cool.,china,https://www.timeanddate.com/weather/china/beijing
+Berlin,52 °F,52,F,Cool,Passing clouds. Cool.,Passing clouds. Cool.,germany,https://www.timeanddate.com/weather/germany/berlin
+Brussels,52 °F,52,F,Cool,Passing clouds. Cool.,Passing clouds. Cool.,belgium,https://www.timeanddate.com/weather/belgium/brussels
+Bogota,52 °F,52,F,Cool,Fog. Cool.,Fog. Cool.,colombia,https://www.timeanddate.com/weather/colombia/bogota
+Cape Town,52 °F,52,F,Cool,Clear. Cool.,Clear. Cool.,south-africa,https://www.timeanddate.com/weather/south-africa/cape-town
+Detroit,51 °F,51,F,Cool,Clear. Cool.,Clear. Cool.,usa,https://www.timeanddate.com/weather/usa/detroit
+Boston,51 °F,51,F,Cool,Overcast. Cool.,Overcast. Cool.,usa,https://www.timeanddate.com/weather/usa/boston
+Belgrade,50 °F,50,F,Cool,Clear. Cool.,Clear. Cool.,serbia,https://www.timeanddate.com/weather/serbia/belgrade
+Anchorage,47 °F,47,F,Cold,Overcast. Cool.,Overcast. Cool.,usa,https://www.timeanddate.com/weather/usa/anchorage
+Ankara,46 °F,46,F,Cold,Clear. Cool.,Clear. Cool.,turkey,https://www.timeanddate.com/weather/turkey/ankara
+Copenhagen,46 °F,46,F,Cold,Clear. Cool.,Clear. Cool.,denmark,https://www.timeanddate.com/weather/denmark/copenhagen
+Bucharest,45 °F,45,F,Cold,Fog. Quite cool.,Fog. Quite cool.,romania,https://www.timeanddate.com/weather/romania/bucharest
+Almaty,36 °F,36,F,Cold,Passing clouds. Chilly.,Passing clouds. Chilly.,kazakstan,https://www.timeanddate.com/weather/kazakstan/almaty
+Budapest,36 °F,36,F,Cold,Clear. Chilly.,Clear. Chilly.,hungary,https://www.timeanddate.com/weather/hungary/budapest
+Anadyr,15 °F,15,F,Freezing,Sunny. Cold.,Sunny. Cold.,russia,https://www.timeanddate.com/weather/russia/anadyr
