@@ -74,10 +74,10 @@ fig1 = px.bar(top_cities, x='City', y=temp_col, color='Temp_Category',
                   'Freezing': '#003366',
                   'Cold': '#0066CC',
                   'Cool': '#66B2FF',
-                  'Warm': '#FF9933',
-                  'Hot': '#CC0000'
+                  'Warm': '#FFC107',
+                  'Hot': '#E53935'
               })
-fig1.update_layout(xaxis_tickangle=-45, height=500)
+fig1.update_layout(xaxis_tickangle=-45, height=500,font=dict(size=18),title_font=dict(size=22), margin=dict(l=60, r=30, t=60, b=80))
 st.plotly_chart(fig1, use_container_width=True)
 
 #Category @ condition
@@ -94,21 +94,50 @@ with col1:
                       'Freezing': '#003366',
                       'Cold': '#0066CC',
                       'Cool': '#66B2FF',
-                      'Warm': '#FF9933',
-                      'Hot': '#CC0000'
+                      'Warm': '#FFC107',
+                      'Hot': '#E53935'
                   })
-    fig2.update_traces(textposition='inside', textinfo='percent+label')
+    fig2.update_traces(textposition='inside', textinfo='percent+label', textfont=dict(size=16, color='black'),)
     st.plotly_chart(fig2, use_container_width=True)
 
 #Box Plot
 with col2:
     st.subheader("Weather Conditions")
+    st.markdown("Count of cities for each weather type (sunny, cloudy, etc.)")
     condition_counts = filtered['Condition_Normalized'].value_counts()
+
+    condition_counts = condition_counts[condition_counts.index.notnull() & (condition_counts.index.str.strip() != '')]
+
     fig3 = px.bar(x=condition_counts.index, y=condition_counts.values,
                   labels={'x': 'Condition', 'y': 'Number of Cities'},
                   color=condition_counts.values,
                   color_continuous_scale='Blues')
-    fig3.update_layout(showlegend=False)
+    fig3.update_layout(
+        title={
+            'text': 'Weather Conditions',
+            'x': 0.5,
+            'xanchor': 'center',
+            'yanchor': 'top'
+        },
+        showlegend=False,
+        width=1000,
+        height=500,
+        font=dict(size=18),
+        title_font=dict(size=24, color='black', family='Arial Black'),
+        margin=dict(l=60, r=30, t=60, b=80),
+        bargap=0.2
+    )
+
+    fig3.update_xaxes(
+        tickangle=-30,
+        tickfont=dict(size=16, color='gray'),
+        title_font=dict(size=20, color='black', family='Arial Black')
+    )
+
+    fig3.update_yaxes(
+        tickfont=dict(size=14),
+        title_font=dict(size=16)
+    )
     st.plotly_chart(fig3, use_container_width=True)
 
 #Raw data table
