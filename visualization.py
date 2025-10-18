@@ -2,6 +2,8 @@ import streamlit as st
 import plotly.express as px
 import pandas as pd
 
+
+#Load Data
 @st.cache_data(ttl=600)
 def load_data():
     df = pd.read_csv("weather_data_cleaned.csv")
@@ -11,10 +13,12 @@ def load_data():
 
 df = load_data()
 
+ #Title@introduction
 st.title("Global Weather Dashboard")
 st.markdown(f"Real-time weather data from **{len(df)} cities** worldwide")
 st.divider()
 
+#Sidebar filters
 st.sidebar.header("Filters")
 
 all_conditions = df['Condition_Normalized'].unique().tolist()
@@ -29,6 +33,7 @@ category_filter = st.sidebar.selectbox("Temperature category:", categories)
 
 temp_unit = st.sidebar.radio("Temperature unit:", ['Celsius (°C)', 'Fahrenheit (°F)'])
 
+#filtering data
 filtered = df[df['Condition_Normalized'].isin(conditions)]
 if category_filter != 'All':
     filtered = filtered[filtered['Temp_Category'] == category_filter]
@@ -37,6 +42,9 @@ if category_filter != 'All':
 temp_col = 'Temp_Celsius' if 'Celsius' in temp_unit else 'Temp_Numeric'
 unit = '°C' if 'Celsius' in temp_unit else '°F'
 
+#Metric overview
+st.markdown("Weather Overview")
+st.markdown("A quick summary of the selected cities and their temperature statistics.")
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -54,10 +62,10 @@ with col4:
 
 st.divider()
 
-city_count = 10
-
+#Temperature distribution
  #Bar Chart
-st.subheader(f"Top {city_count} Cities by Temperature")
+st.subheader(f"Top Cities by Temperature")
+city_count = min(10, len(filtered))
 top_cities = filtered.nlargest(city_count, temp_col)
 fig1 = px.bar(top_cities, x='City', y=temp_col, color='Temp_Category',
               title=f'Top {city_count} Cities by Temperature',
@@ -72,11 +80,13 @@ fig1 = px.bar(top_cities, x='City', y=temp_col, color='Temp_Category',
 fig1.update_layout(xaxis_tickangle=-45, height=500)
 st.plotly_chart(fig1, use_container_width=True)
 
+#Category @ condition
 col1, col2 = st.columns(2)
 
 #Pie Chart
 with col1:
     st.subheader("Temperature Categories")
+    st.markdown("Proportion of cities by temperature range.")
     category_counts = filtered['Temp_Category'].value_counts()
     fig2 = px.pie(values=category_counts.values, names=category_counts.index,
                   color=category_counts.index,
@@ -101,7 +111,9 @@ with col2:
     fig3.update_layout(showlegend=False)
     st.plotly_chart(fig3, use_container_width=True)
 
+#Raw data table
 st.subheader("Raw Data")
+st.markdown("View the detailed table of cities that match your filter selections.")
 show_data = st.checkbox("Show data table")
 if show_data:
     st.dataframe(
