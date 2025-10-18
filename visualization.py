@@ -1,72 +1,110 @@
-import dash
-from dash import dcc, html, Input, Output
+import streamlit as st
 import plotly.express as px
 import pandas as pd
 
-df = pd.read_csv("weather_data_cleaned.csv")
+@st.cache_data(ttl=600)
+def load_data():
+    df = pd.read_csv("weather_data_cleaned.csv")
+    df['Temp_Numeric'] = pd.to_numeric(df['Temp_Numeric'], errors='coerce')
+    df['Temp_Celsius'] = (df['Temp_Numeric'] - 32) * 5/9
+    return df
 
-app = dash.Dash(__name__)
+df = load_data()
 
-app.layout = html.Div([
-    html.H1('Weather Dashboard', style={'textAlign': 'center'}),
+st.title("Global Weather Dashboard")
+st.markdown(f"Real-time weather data from **{len(df)} cities** worldwide")
+st.divider()
 
-    html.Div([
-        html.Label('Temperature Unit:'),
-        dcc.RadioItems(
-            id='temp-unit',
-            options=[{'label': 'Fahrenheit', 'value': 'F'}, {'label': 'Celsius', 'value': 'C'}],
-            value='F'
-        ),
+st.sidebar.header("Filters")
 
-        html.Label('Number of cities:'),
-        dcc.Slider(id='city-slider', min=10, max=50, value=20, marks={10: '10', 30: '30', 50: '50'}),
-
-        html.Label('Weather Condition:'),
-        dcc.Dropdown(
-            id='condition-dropdown',
-            options=[{'label': c, 'value': c} for c in df['Condition_Normalized'].unique()],
-            value=df['Condition_Normalized'].unique().tolist(),
-            multi=True
-        )
-    ], style={'padding': '1em'}),
-
-    dcc.Graph(id='bar-chart'),
-    dcc.Graph(id='pie-chart'),
-    dcc.Graph(id='box-plot')
-])
-
-@app.callback(
-    [Output('bar-chart', 'figure'),
-     Output('pie-chart', 'figure'),
-     Output('box-plot', 'figure')],
-    [Input('temp-unit', 'value'),
-     Input('city-slider', 'value'),
-     Input('condition-dropdown', 'value')]
+all_conditions = df['Condition_Normalized'].unique().tolist()
+conditions = st.sidebar.multiselect(
+    "Select weather conditions:",
+    options=all_conditions,
+    default=all_conditions
 )
-def update_graphs(temp_unit, city_count, conditions):
-    filtered = df[df['Condition_Normalized'].isin(conditions)]
 
-    temp_col = 'Temp_Numeric' if temp_unit == 'F' else 'Temp_Celsius'
-    unit = '°F' if temp_unit == 'F' else '°C'
+categories = ['All'] + df['Temp_Category'].unique().tolist()
+category_filter = st.sidebar.selectbox("Temperature category:", categories)
 
-    #Bar Chart
-    top_cities = filtered.nlargest(city_count, temp_col)
-    fig1 = px.bar(top_cities, x='City', y=temp_col, color='Temp_Category',
-                  title=f'Top {city_count} Cities by Temperature',
-                  labels={temp_col: f'Temperature ({unit})'})
-    fig1.update_layout(xaxis_tickangle=-45)
+temp_unit = st.sidebar.radio("Temperature unit:", ['Celsius (°C)', 'Fahrenheit (°F)'])
 
-    #Pie Chart
+filtered = df[df['Condition_Normalized'].isin(conditions)]
+if category_filter != 'All':
+    filtered = filtered[filtered['Temp_Category'] == category_filter]
+
+
+temp_col = 'Temp_Celsius' if 'Celsius' in temp_unit else 'Temp_Numeric'
+unit = '°C' if 'Celsius' in temp_unit else '°F'
+
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.metric("Cities", len(filtered))
+
+with col2:
+    st.metric("Average Temperature", f"{filtered[temp_col].mean():.1f}{unit}")
+
+with col3:
+    st.metric("Hottest", f"{filtered[temp_col].max():.1f}{unit}")
+
+with col4:
+    st.metric("Coldest", f"{filtered[temp_col].min():.1f}{unit}")
+
+st.divider()
+
+city_count = 10
+
+ #Bar Chart
+st.subheader(f"Top {city_count} Cities by Temperature")
+top_cities = filtered.nlargest(city_count, temp_col)
+fig1 = px.bar(top_cities, x='City', y=temp_col, color='Temp_Category',
+              title=f'Top {city_count} Cities by Temperature',
+              labels={temp_col: f'Temperature ({unit})'},
+              color_discrete_map={
+                  'Freezing': '#003366',
+                  'Cold': '#0066CC',
+                  'Cool': '#66B2FF',
+                  'Warm': '#FF9933',
+                  'Hot': '#CC0000'
+              })
+fig1.update_layout(xaxis_tickangle=-45, height=500)
+st.plotly_chart(fig1, use_container_width=True)
+
+col1, col2 = st.columns(2)
+
+#Pie Chart
+with col1:
+    st.subheader("Temperature Categories")
     category_counts = filtered['Temp_Category'].value_counts()
     fig2 = px.pie(values=category_counts.values, names=category_counts.index,
-                  title='Temperature Categories')
+                  color=category_counts.index,
+                  color_discrete_map={
+                      'Freezing': '#003366',
+                      'Cold': '#0066CC',
+                      'Cool': '#66B2FF',
+                      'Warm': '#FF9933',
+                      'Hot': '#CC0000'
+                  })
+    fig2.update_traces(textposition='inside', textinfo='percent+label')
+    st.plotly_chart(fig2, use_container_width=True)
 
-    #Box Plot
-    fig3 = px.box(filtered, x='Condition_Normalized', y=temp_col,
-                  title='Temperature by Weather Condition',
-                  labels={temp_col: f'Temperature ({unit})'})
+#Box Plot
+with col2:
+    st.subheader("Weather Conditions")
+    condition_counts = filtered['Condition_Normalized'].value_counts()
+    fig3 = px.bar(x=condition_counts.index, y=condition_counts.values,
+                  labels={'x': 'Condition', 'y': 'Number of Cities'},
+                  color=condition_counts.values,
+                  color_continuous_scale='Blues')
+    fig3.update_layout(showlegend=False)
+    st.plotly_chart(fig3, use_container_width=True)
 
-    return fig1, fig2, fig3
-
-if __name__ == '__main__':
-    app.run(debug=True)
+st.subheader("Raw Data")
+show_data = st.checkbox("Show data table")
+if show_data:
+    st.dataframe(
+        filtered[['City', 'Temp_Raw', 'Temp_Category', 'Condition_Normalized', 'Country']],
+        use_container_width=True
+    )
